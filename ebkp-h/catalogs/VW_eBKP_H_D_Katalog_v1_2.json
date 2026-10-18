@@ -1,0 +1,1119 @@
+{
+  "metadaten": {
+    "name": "VW eBKP-H Kategorie D – statischer Soll-Katalog",
+    "version": "1.2.0",
+    "stand": "2026-10-10",
+    "ebkp_norm": "SN 506 511:2020",
+    "din276_norm": "DIN 276:2018-12",
+    "zielordner": "02_TEST",
+    "dateityp": "Datenkatalog; keine Vectorworks-Befehle und keine Änderungen an Dokumenten",
+    "definition_lph": "Früheste übliche separate Modellverwendung, keine normierte LPH-Anforderung",
+    "definition_din": "Kandidaten sind keine verbindliche 1:1-Normübersetzung. Status pruefen erfordert objektbezogene Prüfung.",
+    "quelle_ebkp": "https://www.crb.ch/_Resources/Persistent/5/1/7/d/517de4b60fd6f28b6137e873ea1c9284f345e648/Auszug_eBKP_2020_Web.pdf",
+    "tag_basis": [
+      "Bauteil",
+      "D-Technik"
+    ],
+    "betrieb": "Nur deklarative Sollwerte; AUDIT und CREATE folgen in späteren Entwicklungsschritten.",
+    "tagkonvention": "Kurz-Tags 1.0: LPn, KGxxx, KG_Pruefen, Kombi; Referenz VW_Python_Entwicklungsstandard_v1_1.md",
+    "definition_K": "Kxx bezeichnet eine individuelle Kombiklasse aus mehreren eBKP-H-Elementen; kein offizieller Normelementcode.",
+    "aenderung_v1_2": "Namenskonvention der 18 Kombiklassen: M01/M02 zu K01/K02; fachliche Zuordnungen unveraendert. Pruefung der Kombinationsregeln folgt separat."
+  },
+  "gruppen": {
+    "D01": {
+      "normbezeichnung": "Elektroanlage",
+      "gewerk_tag": "Elektro"
+    },
+    "D02": {
+      "normbezeichnung": "Gebäudeautomation",
+      "gewerk_tag": "Automation"
+    },
+    "D03": {
+      "normbezeichnung": "Sicherheitsanlage",
+      "gewerk_tag": "Sicherheit"
+    },
+    "D04": {
+      "normbezeichnung": "Technische Brandschutzanlage",
+      "gewerk_tag": "Brandschutz"
+    },
+    "D05": {
+      "normbezeichnung": "Wärmetechnische Anlage",
+      "gewerk_tag": "Heizung"
+    },
+    "D06": {
+      "normbezeichnung": "Kältetechnische Anlage",
+      "gewerk_tag": "Kaelte"
+    },
+    "D07": {
+      "normbezeichnung": "Lufttechnische Anlage",
+      "gewerk_tag": "Lueftung"
+    },
+    "D08": {
+      "normbezeichnung": "Wassertechnische Anlage",
+      "gewerk_tag": "Sanitaer"
+    },
+    "D09": {
+      "normbezeichnung": "Abwassertechnische Anlage",
+      "gewerk_tag": "Entwaesserung"
+    },
+    "D10": {
+      "normbezeichnung": "Gastechnische Anlage",
+      "gewerk_tag": "Gas"
+    },
+    "D11": {
+      "normbezeichnung": "Anlage für Spezialmedien",
+      "gewerk_tag": "Spezialmedien"
+    },
+    "D12": {
+      "normbezeichnung": "Beförderungsanlage",
+      "gewerk_tag": "Foerdertechnik"
+    }
+  },
+  "normelemente": {
+    "D01.01": "Anlage Erzeugung Starkstrom",
+    "D01.02": "Transformierung Starkstrom",
+    "D01.03": "Speicherung Starkstrom",
+    "D01.04": "Installation Starkstrom",
+    "D01.05": "Verbraucher Starkstrom: Leuchten",
+    "D01.06": "Verbraucher Starkstrom: Elektrogeräte",
+    "D01.07": "Anlage Erzeugung Schwachstrom",
+    "D01.08": "Transformierung Schwachstrom",
+    "D01.09": "Speicherung Schwachstrom",
+    "D01.10": "Installation Schwachstrom",
+    "D01.11": "Verbraucher Schwachstrom",
+    "D02.01": "Managementebene",
+    "D02.02": "Automationsebene",
+    "D02.03": "Feldebene",
+    "D02.04": "Raumautomation",
+    "D02.05": "Automationsnetzwerk",
+    "D02.06": "Schaltgerätekombination",
+    "D02.07": "Systemintegration",
+    "D03.01": "Einbruchmeldeanlage, Überfallmeldeanlage",
+    "D03.02": "Zutrittskontrollanlage",
+    "D03.03": "Videoüberwachungsanlage",
+    "D03.04": "Schliessanlage",
+    "D04.01": "Brandmeldeanlage",
+    "D04.02": "Gaswarnanlage",
+    "D04.03": "Nasslöschanlage",
+    "D04.04": "Trockenlöschanlage",
+    "D04.05": "Löschgerät",
+    "D04.06": "Rauch- und Wärmebehandlungsanlage",
+    "D04.07": "Elektroakustische Lautsprecheranlage",
+    "D05.01": "Wärmequelle, -senke, Brennstofflager",
+    "D05.02": "Wärmeerzeugung",
+    "D05.03": "Wärmespeicherung",
+    "D05.04": "Wärmeverteilung",
+    "D05.05": "Wärmeabgabe",
+    "D05.06": "Wärmebezug: Investitionsanteil",
+    "D06.01": "Kältequelle, -senke, Brennstofflager",
+    "D06.02": "Kälteerzeugung",
+    "D06.03": "Kältespeicherung",
+    "D06.04": "Kälteverteilung",
+    "D06.05": "Kälteabgabe",
+    "D06.06": "Kältebezug: Investitionsanteil",
+    "D07.01": "Aussenluftversorgung, Fortluftführung",
+    "D07.02": "Luftaufbereitung",
+    "D07.03": "Luftwärmespeicherung",
+    "D07.04": "Luftverteilung",
+    "D07.05": "Luftabgabe",
+    "D07.06": "Luft: Investitionsanteil",
+    "D08.01": "Wasserversorgung",
+    "D08.02": "Wasserbehandlung",
+    "D08.03": "Wasserspeicher",
+    "D08.04": "Wasserverteilung",
+    "D08.05": "Wasser: Armatur, Apparat",
+    "D08.06": "Wasser: Installationselement",
+    "D09.01": "Abwasserentsorgung",
+    "D09.02": "Abwasserbehandlung",
+    "D09.03": "Abwasserspeicher",
+    "D09.04": "Abwassersammlung",
+    "D09.05": "Abwasser: Armatur, Apparat",
+    "D10.01": "Gasversorgung",
+    "D10.02": "Gasbehandlung",
+    "D10.03": "Gasspeicherung",
+    "D10.04": "Gasverteilung",
+    "D10.05": "Gas: Armatur, Apparat",
+    "D11.01": "Spezialmedien: Versorgung, Entsorgung",
+    "D11.02": "Spezialmedien: Aufbereitung",
+    "D11.03": "Spezialmedien: Speicherung",
+    "D11.04": "Spezialmedien: Verteilung",
+    "D11.05": "Spezialmedien: Armatur, Apparat",
+    "D12.01": "Personenaufzug",
+    "D12.02": "Lasten- und Serviceaufzug",
+    "D12.03": "Spezialaufzug",
+    "D12.04": "Fahrtreppe",
+    "D12.05": "Fahrsteig",
+    "D12.06": "Hebeeinrichtung, Verladestation"
+  },
+  "modellklassen": [
+    {
+      "klassenname": "D-01_Elektro-K01_Starkstromversorgung",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.01",
+        "D01.02",
+        "D01.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "441",
+        "442",
+        "443"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-01_Elektro-04_Installation_Starkstrom",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "444"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-01_Elektro-05_Leuchten",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "445"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-01_Elektro-06_Elektrogeraete",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.06"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP3",
+        "KG_Pruefen"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "440",
+        "470",
+        "600"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-01_Elektro-K02_Schwachstromzentrale",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.07",
+        "D01.08",
+        "D01.09"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP3",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "450"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-01_Elektro-10_Installation_Schwachstrom",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.10"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "450"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-01_Elektro-11_Verbraucher_Schwachstrom",
+      "gruppe": "D01",
+      "ebkp_elemente": [
+        "D01.11"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Elektro",
+        "LP5",
+        "KG400"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "450"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-02_Gebaeudeautomation-K01_Zentrale_Automation",
+      "gruppe": "D02",
+      "ebkp_elemente": [
+        "D02.01",
+        "D02.02",
+        "D02.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Automation",
+        "LP3",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "481",
+        "483"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-02_Gebaeudeautomation-K02_Raumautomation_Netzwerk",
+      "gruppe": "D02",
+      "ebkp_elemente": [
+        "D02.04",
+        "D02.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Automation",
+        "LP3",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "481",
+        "484",
+        "485"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-02_Gebaeudeautomation-06_Schaltgeraetekombination",
+      "gruppe": "D02",
+      "ebkp_elemente": [
+        "D02.06"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Automation",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "482"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-03_Sicherheit-K01_Meldung_Ueberwachung",
+      "gruppe": "D03",
+      "ebkp_elemente": [
+        "D03.01",
+        "D03.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sicherheit",
+        "LP3",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "456"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-03_Sicherheit-02_Zutrittskontrolle",
+      "gruppe": "D03",
+      "ebkp_elemente": [
+        "D03.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sicherheit",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "456"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-03_Sicherheit-04_Schliessanlage",
+      "gruppe": "D03",
+      "ebkp_elemente": [
+        "D03.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sicherheit",
+        "LP5",
+        "KG_Pruefen"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "300",
+        "456"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-04_Brandschutz-K01_Meldung_Alarmierung",
+      "gruppe": "D04",
+      "ebkp_elemente": [
+        "D04.01",
+        "D04.02",
+        "D04.07"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Brandschutz",
+        "LP3",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "454",
+        "456"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-04_Brandschutz-K02_Loeschanlage",
+      "gruppe": "D04",
+      "ebkp_elemente": [
+        "D04.03",
+        "D04.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Brandschutz",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "474"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-04_Brandschutz-05_Loeschgeraet",
+      "gruppe": "D04",
+      "ebkp_elemente": [
+        "D04.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Brandschutz",
+        "LP5",
+        "KG400"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "474"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-04_Brandschutz-06_Rauch_Waermebehandlung",
+      "gruppe": "D04",
+      "ebkp_elemente": [
+        "D04.06"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Brandschutz",
+        "LP2",
+        "KG_Pruefen"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "300",
+        "430",
+        "450"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-05_Waerme-K01_Quelle_Erzeugung",
+      "gruppe": "D05",
+      "ebkp_elemente": [
+        "D05.01",
+        "D05.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Heizung",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "421"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-05_Waerme-03_Speicherung",
+      "gruppe": "D05",
+      "ebkp_elemente": [
+        "D05.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Heizung",
+        "LP2",
+        "KG400"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "421"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-05_Waerme-04_Verteilung",
+      "gruppe": "D05",
+      "ebkp_elemente": [
+        "D05.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Heizung",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "422"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-05_Waerme-05_Abgabe",
+      "gruppe": "D05",
+      "ebkp_elemente": [
+        "D05.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Heizung",
+        "LP2",
+        "KG400"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "423",
+        "424"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-06_Kaelte-K01_Quelle_Erzeugung",
+      "gruppe": "D06",
+      "ebkp_elemente": [
+        "D06.01",
+        "D06.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Kaelte",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "434"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-06_Kaelte-K02_Speicherung_Verteilung",
+      "gruppe": "D06",
+      "ebkp_elemente": [
+        "D06.03",
+        "D06.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Kaelte",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "434"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-06_Kaelte-05_Abgabe",
+      "gruppe": "D06",
+      "ebkp_elemente": [
+        "D06.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Kaelte",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "434",
+        "439"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-07_Luft-K01_Aussenluft_Fortluft_Aufbereitung",
+      "gruppe": "D07",
+      "ebkp_elemente": [
+        "D07.01",
+        "D07.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Lueftung",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "431",
+        "432",
+        "433"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-07_Luft-03_Waermespeicherung",
+      "gruppe": "D07",
+      "ebkp_elemente": [
+        "D07.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Lueftung",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "431",
+        "432",
+        "433"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-07_Luft-04_Verteilung",
+      "gruppe": "D07",
+      "ebkp_elemente": [
+        "D07.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Lueftung",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "431",
+        "432",
+        "433"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-07_Luft-05_Abgabe",
+      "gruppe": "D07",
+      "ebkp_elemente": [
+        "D07.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Lueftung",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "431",
+        "432",
+        "433"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-08_Wasser-K01_Versorgung_Behandlung",
+      "gruppe": "D08",
+      "ebkp_elemente": [
+        "D08.01",
+        "D08.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sanitaer",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "412"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-08_Wasser-03_Speicher",
+      "gruppe": "D08",
+      "ebkp_elemente": [
+        "D08.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sanitaer",
+        "LP2",
+        "KG400"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "412"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-08_Wasser-04_Verteilung",
+      "gruppe": "D08",
+      "ebkp_elemente": [
+        "D08.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sanitaer",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "412"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-08_Wasser-05_Armatur_Apparat",
+      "gruppe": "D08",
+      "ebkp_elemente": [
+        "D08.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sanitaer",
+        "LP2",
+        "KG400"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "412"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-08_Wasser-06_Installationselement",
+      "gruppe": "D08",
+      "ebkp_elemente": [
+        "D08.06"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Sanitaer",
+        "LP5",
+        "KG400"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "419",
+        "412"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-09_Abwasser-K01_Entsorgung_Behandlung_Speicher",
+      "gruppe": "D09",
+      "ebkp_elemente": [
+        "D09.01",
+        "D09.02",
+        "D09.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Entwaesserung",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "411"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-09_Abwasser-04_Sammlung",
+      "gruppe": "D09",
+      "ebkp_elemente": [
+        "D09.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Entwaesserung",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "411"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-09_Abwasser-05_Armatur_Apparat",
+      "gruppe": "D09",
+      "ebkp_elemente": [
+        "D09.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Entwaesserung",
+        "LP5",
+        "KG400"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "411"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-10_Gas-K01_Versorgung_Behandlung_Speicherung",
+      "gruppe": "D10",
+      "ebkp_elemente": [
+        "D10.01",
+        "D10.02",
+        "D10.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Gas",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "413",
+        "420",
+        "470"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-10_Gas-04_Verteilung",
+      "gruppe": "D10",
+      "ebkp_elemente": [
+        "D10.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Gas",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "413",
+        "420",
+        "470"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-10_Gas-05_Armatur_Apparat",
+      "gruppe": "D10",
+      "ebkp_elemente": [
+        "D10.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Gas",
+        "LP5",
+        "KG400"
+      ],
+      "lph_tag": "LP5",
+      "din276_kandidaten": [
+        "413",
+        "420",
+        "470"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-11_Spezialmedien-K01_Versorgung_Entsorgung_Aufbereitung",
+      "gruppe": "D11",
+      "ebkp_elemente": [
+        "D11.01",
+        "D11.02"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Spezialmedien",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "473",
+        "477"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-11_Spezialmedien-K02_Speicherung_Verteilung",
+      "gruppe": "D11",
+      "ebkp_elemente": [
+        "D11.03",
+        "D11.04"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Spezialmedien",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "473",
+        "477"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-11_Spezialmedien-05_Armatur_Apparat",
+      "gruppe": "D11",
+      "ebkp_elemente": [
+        "D11.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Spezialmedien",
+        "LP3",
+        "KG400"
+      ],
+      "lph_tag": "LP3",
+      "din276_kandidaten": [
+        "473",
+        "477"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-12_Befoerderung-K01_Aufzug",
+      "gruppe": "D12",
+      "ebkp_elemente": [
+        "D12.01",
+        "D12.02",
+        "D12.03"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Foerdertechnik",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "461",
+        "463",
+        "469"
+      ],
+      "din276_status": "pruefen"
+    },
+    {
+      "klassenname": "D-12_Befoerderung-K02_Fahrtreppe_Fahrsteig",
+      "gruppe": "D12",
+      "ebkp_elemente": [
+        "D12.04",
+        "D12.05"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Foerdertechnik",
+        "LP2",
+        "KG400",
+        "Kombi"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "462"
+      ],
+      "din276_status": "standard"
+    },
+    {
+      "klassenname": "D-12_Befoerderung-06_Hebeeinrichtung_Verladestation",
+      "gruppe": "D12",
+      "ebkp_elemente": [
+        "D12.06"
+      ],
+      "tags": [
+        "Bauteil",
+        "D-Technik",
+        "Foerdertechnik",
+        "LP2",
+        "KG400"
+      ],
+      "lph_tag": "LP2",
+      "din276_kandidaten": [
+        "464",
+        "465",
+        "466",
+        "469"
+      ],
+      "din276_status": "pruefen"
+    }
+  ],
+  "ohne_modellklasse": [
+    {
+      "element": "D02.07",
+      "verwaltung": "Leistung",
+      "din276_kandidaten": [
+        "480",
+        "489"
+      ],
+      "status": "pruefen"
+    },
+    {
+      "element": "D05.06",
+      "verwaltung": "Kostenposition",
+      "din276_kandidaten": [
+        "420"
+      ],
+      "status": "pruefen"
+    },
+    {
+      "element": "D06.06",
+      "verwaltung": "Kostenposition",
+      "din276_kandidaten": [
+        "430"
+      ],
+      "status": "pruefen"
+    },
+    {
+      "element": "D07.06",
+      "verwaltung": "Kostenposition",
+      "din276_kandidaten": [
+        "430"
+      ],
+      "status": "pruefen"
+    }
+  ]
+}

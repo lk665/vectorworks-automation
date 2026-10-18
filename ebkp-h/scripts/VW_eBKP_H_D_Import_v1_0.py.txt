@@ -1,0 +1,534 @@
+
+# VW_eBKP_H_D_Import_v1_0.py
+# Version: 1.0
+# Zielordner: 02_TEST
+#
+# eBKP-H Kategorie D
+# Quelle: VW_eBKP_H_D_Katalog_v1_2.json
+#
+# AUDIT  = Dokument nur pruefen
+# CREATE = Fehlende Klassen erstellen, Tags ergaenzen
+#
+# Keine Klassen umbenennen, zusammenfuehren
+# oder loeschen.
+#
+# WICHTIG:
+# Dieses Skript verarbeitet Version 1.2 mit
+# 45 Modellklassen, NICHT die neue 13er-Struktur.
+
+import os
+import re
+import json
+import vs
+
+
+# -------------------------------------------
+# 01 KONFIGURATION
+# -------------------------------------------
+
+VERSION = "1.0"
+
+MODUS = "AUDIT"
+
+KATALOG_DATEI = "VW_eBKP_H_D_Katalog_v1_2.json"
+
+# Optional: Absoluten Pfad eintragen.
+# Wenn leer, wird der Skriptordner versucht.
+KATALOG_PFAD = ""
+
+MAX_NAME = 63
+ERWARTETE_VERSION = "1.2.0"
+ERWARTETE_KLASSEN = 45
+ERWARTETE_NORMELEMENTE = 74
+
+
+# -------------------------------------------
+# 02 HILFSFUNKTIONEN
+# -------------------------------------------
+
+def melden(text):
+    vs.AlrtDialog(str(text))
+
+
+def katalogpfad():
+    if KATALOG_PFAD:
+        return KATALOG_PFAD
+
+    ordner = (
+        os.path.dirname(os.path.abspath(__file__))
+        if "__file__" in globals()
+        else os.getcwd()
+    )
+
+    return os.path.join(ordner, KATALOG_DATEI)
+
+
+def klassennamen():
+    return [
+        vs.ClassList(i)
+        for i in range(1, vs.ClassNum() + 1)
+    ]
+
+
+def normal_tag(tag):
+    """Alte und neue Schreibweisen vergleichen."""
+
+    match = re.fullmatch(
+        r"LPH_0*(\d+)", tag
+    )
+    if match:
+        return "LP" + match.group(1)
+
+    match = re.fullmatch(
+        r"DIN276_([1-8]00)", tag
+    )
+    if match:
+        return "KG" + match.group(1)
+
+    if tag == "DIN276_Pruefen":
+        return "KG_Pruefen"
+
+    if tag == "eBKP_Aggregiert":
+        return "Kombi"
+
+    return tag
+
+
+def tags_lesen(handle):
+    ok, tags = vs.GetObjectTags(handle)
+
+    if not ok:
+        raise RuntimeError(
+            "Objekttags konnten nicht gelesen werden"
+        )
+
+    return list(tags or [])
+
+
+def tags_pruefen(alt, soll):
+    alt_normal = {
+        normal_tag(tag) for tag in alt
+    }
+
+    soll_normal = {
+        normal_tag(tag) for tag in soll
+    }
+
+    konflikte = []
+
+    lp_alt = {
+        t for t in alt_normal
+        if re.fullmatch(r"LP\d+", t)
+    }
+
+    lp_soll = {
+        t for t in soll_normal
+        if re.fullmatch(r"LP\d+", t)
+    }
+
+    if lp_alt and lp_alt != lp_soll:
+        konflikte.append("LP-Konflikt")
+
+    kg_alt = {
+        t for t in alt_normal
+        if re.fullmatch(r"KG\d00", t)
+        or t == "KG_Pruefen"
+    }
+
+    kg_soll = {
+        t for t in soll_normal
+        if re.fullmatch(r"KG\d00", t)
+        or t == "KG_Pruefen"
+    }
+
+    if kg_alt and kg_alt != kg_soll:
+        konflikte.append("KG-Konflikt")
+
+    fehlend = [
+        tag for tag in soll
+        if normal_tag(tag) not in alt_normal
+    ]
+
+    return konflikte, fehlend
+
+
+# -------------------------------------------
+# 03 KATALOG LADEN
+# -------------------------------------------
+
+def katalog_laden():
+    pfad = katalogpfad()
+
+    if not os.path.isfile(pfad):
+        raise RuntimeError(
+            "JSON-Katalog nicht gefunden:\n" + pfad
+        )
+
+    with open(pfad, "r", encoding="utf-8") as f:
+        daten = json.load(f)
+
+    return daten
+
+
+# -------------------------------------------
+# 04 KATALOG VALIDIEREN
+# -------------------------------------------
+
+def katalog_pruefen(daten):
+
+    version = daten["metadaten"]["version"]
+
+    if version != ERWARTETE_VERSION:
+        raise RuntimeError(
+            "Unerwartete Version: " + version
+        )
+
+    klassen = daten["modellklassen"]
+    normen = daten["normelemente"]
+    gruppen = daten["gruppen"]
+
+    if len(klassen) != ERWARTETE_KLASSEN:
+        raise RuntimeError(
+            "Erwartet: 45 Modellklassen"
+        )
+
+    if len(normen) != ERWARTETE_NORMELEMENTE:
+        raise RuntimeError(
+            "Erwartet: 74 Normelemente"
+        )
+
+    if len(gruppen) != 12:
+        raise RuntimeError(
+            "Erwartet: 12 Elementgruppen"
+        )
+
+    namen = set()
+    zuordnungen = set()
+
+    for eintrag in klassen:
+
+        name = eintrag["klassenname"]
+        gruppe = eintrag["gruppe"]
+        codes = eintrag["ebkp_elemente"]
+        tags = eintrag["tags"]
+        phase = eintrag["lph_tag"]
+
+        if len(name) > MAX_NAME:
+            raise RuntimeError(
+                "Klassenname zu lang:\n" + name
+            )
+
+        schluessel = name.casefold()
+
+        if schluessel in namen:
+            raise RuntimeError(
+                "Doppelter Klassenname:\n" + name
+            )
+
+        namen.add(schluessel)
+
+        if gruppe not in gruppen:
+            raise RuntimeError(
+                "Unbekannte Gruppe:\n" + gruppe
+            )
+
+        if phase not in ("LP2", "LP3", "LP5"):
+            raise RuntimeError(
+                "Ungueltige LP:\n" + name
+            )
+
+        if phase not in tags:
+            raise RuntimeError(
+                "LP-Tag fehlt:\n" + name
+            )
+
+        if not codes:
+            raise RuntimeError(
+                "Elementzuordnung fehlt:\n" + name
+            )
+
+        if len(codes) > 1 and "Kombi" not in tags:
+            raise RuntimeError(
+                "Kombi-Tag fehlt:\n" + name
+            )
+
+        if len(codes) == 1 and "Kombi" in tags:
+            raise RuntimeError(
+                "Unnoetiger Kombi-Tag:\n" + name
+            )
+
+        for code in codes:
+
+            if code not in normen:
+                raise RuntimeError(
+                    "Unbekannter eBKP-H-Code:\n" + code
+                )
+
+            if not code.startswith(gruppe + "."):
+                raise RuntimeError(
+                    "Falsche Elementgruppe:\n" + code
+                )
+
+            if code in zuordnungen:
+                raise RuntimeError(
+                    "Doppelte Normzuordnung:\n" + code
+                )
+
+            zuordnungen.add(code)
+
+    nicht_modelliert = {
+        eintrag if isinstance(eintrag, str)
+        else eintrag.get("code")
+        for eintrag in daten["ohne_modellklasse"]
+    }
+
+    if len(nicht_modelliert) != 4:
+        raise RuntimeError(
+            "Erwartet: 4 nicht modellierte Elemente"
+        )
+
+    if (zuordnungen & nicht_modelliert):
+        raise RuntimeError(
+            "Element zugleich modelliert und ausgeschlossen"
+        )
+
+    if zuordnungen | nicht_modelliert != set(normen):
+        raise RuntimeError(
+            "Normelemente nicht vollstaendig zugeordnet"
+        )
+
+    return klassen
+
+
+# -------------------------------------------
+# 05 VECTORWORKS KLASSEN PRUEFEN
+# -------------------------------------------
+
+def klasse_pruefen(eintrag):
+
+    name = eintrag["klassenname"]
+    soll_tags = eintrag["tags"]
+
+    namen = klassennamen()
+    genaue_namen = set(namen)
+
+    if name not in genaue_namen:
+        if name.casefold() in {
+            n.casefold() for n in namen
+        }:
+            return "KONFLIKT", "Namensabweichung"
+
+        if vs.GetObject(name):
+            return "KONFLIKT", "Ressourcenname belegt"
+
+        return "FEHLT", "Klasse nicht vorhanden"
+
+    handle = vs.GetObject(name)
+
+    alt = tags_lesen(handle)
+
+    konflikte, fehlend = tags_pruefen(
+        alt, soll_tags
+    )
+
+    if konflikte:
+        return "KONFLIKT", ", ".join(konflikte)
+
+    if fehlend:
+        return "TAGS", ", ".join(fehlend)
+
+    return "OK", "Vollstaendig"
+
+
+# -------------------------------------------
+# 06 KLASSE ERSTELLEN
+# -------------------------------------------
+
+def klasse_erstellen(eintrag):
+
+    name = eintrag["klassenname"]
+
+    if len(name) > MAX_NAME:
+        raise RuntimeError("Name zu lang")
+
+    if name.casefold() in {
+        n.casefold() for n in klassennamen()
+    }:
+        raise RuntimeError("Klasse bereits vorhanden")
+
+    if vs.GetObject(name):
+        raise RuntimeError("Name anderweitig belegt")
+
+    vorher = set(klassennamen())
+
+    vs.NameClass(name)
+
+    nachher = set(klassennamen())
+
+    if name not in nachher:
+        differenz = sorted(nachher - vorher)
+        raise RuntimeError(
+            "NameClass hat den Zielnamen nicht "
+            "exakt erstellt: " + ", ".join(differenz)
+        )
+
+    vs.SetClUseGraphic(name, True)
+
+    if not vs.GetClUseGraphic(name):
+        raise RuntimeError(
+            "Klassenattribute konnten nicht "
+            "aktiviert werden"
+        )
+
+
+# -------------------------------------------
+# 07 TAGS ERGAENZEN
+# -------------------------------------------
+
+def tags_ergaenzen(eintrag):
+
+    name = eintrag["klassenname"]
+    handle = vs.GetObject(name)
+
+    if not handle:
+        raise RuntimeError(
+            "Klasse nicht gefunden: " + name
+        )
+
+    alt = tags_lesen(handle)
+
+    konflikte, fehlend = tags_pruefen(
+        alt, eintrag["tags"]
+    )
+
+    if konflikte:
+        raise RuntimeError(
+            "Tag-Konflikt: " + ", ".join(konflikte)
+        )
+
+    if not fehlend:
+        return False
+
+    neu = list(dict.fromkeys(alt + fehlend))
+
+    if not vs.SetObjectTags(
+        handle, tuple(neu)
+    ):
+        raise RuntimeError(
+            "Tags konnten nicht geschrieben werden"
+        )
+
+    kontrolle = tags_lesen(handle)
+
+    if not set(neu).issubset(set(kontrolle)):
+        raise RuntimeError(
+            "Tag-Kontrolle fehlgeschlagen"
+        )
+
+    return True
+
+
+# -------------------------------------------
+# 08 HAUPTPROGRAMM
+# -------------------------------------------
+
+def main():
+
+    if MODUS not in ("AUDIT", "CREATE"):
+        melden("Ungueltiger Betriebsmodus")
+        return
+
+    try:
+        daten = katalog_laden()
+        klassen = katalog_pruefen(daten)
+    except Exception as fehler:
+        melden(
+            "Katalogfehler:\n" + str(fehler)
+        )
+        return
+
+    bericht = []
+    statistik = {
+        "OK": 0,
+        "FEHLT": 0,
+        "TAGS": 0,
+        "KONFLIKT": 0,
+        "ERSTELLT": 0,
+        "AKTUALISIERT": 0
+    }
+
+    aktive_klasse = vs.ActiveClass()
+
+    try:
+        for eintrag in klassen:
+
+            name = eintrag["klassenname"]
+
+            try:
+                status, info = klasse_pruefen(
+                    eintrag
+                )
+
+                if MODUS == "CREATE":
+
+                    if status == "FEHLT":
+                        klasse_erstellen(eintrag)
+                        tags_ergaenzen(eintrag)
+                        status = "ERSTELLT"
+
+                    elif status == "TAGS":
+                        tags_ergaenzen(eintrag)
+                        status = "AKTUALISIERT"
+
+                statistik[status] += 1
+
+                bericht.append(
+                    status + ": " + name + "\n" + info
+                )
+
+            except Exception as fehler:
+                statistik["KONFLIKT"] += 1
+                bericht.append(
+                    "FEHLER: " + name + "\n"
+                    + str(fehler)
+                )
+
+                # Bei unerwartetem CREATE-Fehler
+                # keine weiteren Klassen anlegen.
+                if MODUS == "CREATE":
+                    break
+
+    finally:
+        if MODUS == "CREATE":
+            if aktive_klasse in klassennamen():
+                vs.NameClass(aktive_klasse)
+
+    text = (
+        "eBKP-H Kategorie D | v1.2\n"
+        "Skriptversion: " + VERSION + "\n"
+        "Modus: " + MODUS + "\n\n"
+        "OK: " + str(statistik["OK"]) + "\n"
+        "Fehlend: " + str(statistik["FEHLT"]) + "\n"
+        "Tags fehlen: " + str(statistik["TAGS"]) + "\n"
+        "Konflikte: " + str(statistik["KONFLIKT"]) + "\n"
+        "Erstellt: " + str(statistik["ERSTELLT"]) + "\n"
+        "Aktualisiert: "
+        + str(statistik["AKTUALISIERT"])
+    )
+
+    melden(text)
+
+    auffaellig = [
+        z for z in bericht
+        if not z.startswith("OK:")
+    ]
+
+    for i in range(0, len(auffaellig), 8):
+        melden(
+            "Detailbericht\n\n"
+            + "\n\n".join(auffaellig[i:i+8])
+        )
+
+
+if __name__ == "__main__":
+    main()
